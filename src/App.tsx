@@ -6,11 +6,13 @@ import { ProjectsPage } from "@/pages/ProjectsPage";
 import { AboutPage } from "@/pages/AboutPage";
 import { ContactPage } from "@/pages/ContactPage";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export function App() {
   return (
     <BrowserRouter>
       <Analytics />
+      <SpeedInsights />
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<HomePage />} />

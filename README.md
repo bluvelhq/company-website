@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
@@ -71,3 +72,7 @@ export default defineConfig([
   },
 ])
 ```
+=======
+# bluvel-website
+The repository of the website for the Bluvel Cloud Systems.
+>>>>>>> 98950cf229fd04622eb46686b224596752518568

@@ -1,14 +1,16 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom"
-import { Layout } from "@/components/layout/Layout"
-import { HomePage } from "@/pages/HomePage"
-import { ServicesPage } from "@/pages/ServicesPage"
-import { ProjectsPage } from "@/pages/ProjectsPage"
-import { AboutPage } from "@/pages/AboutPage"
-import { ContactPage } from "@/pages/ContactPage"
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Layout } from "@/components/layout/Layout";
+import { HomePage } from "@/pages/HomePage";
+import { ServicesPage } from "@/pages/ServicesPage";
+import { ProjectsPage } from "@/pages/ProjectsPage";
+import { AboutPage } from "@/pages/AboutPage";
+import { ContactPage } from "@/pages/ContactPage";
+import { Analytics } from "@vercel/analytics/next";
 
 export function App() {
   return (
     <BrowserRouter>
+      <Analytics />
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<HomePage />} />
@@ -19,7 +21,7 @@ export function App() {
         </Route>
       </Routes>
     </BrowserRouter>
-  )
+  );
 }
 
-export default App
+export default App;

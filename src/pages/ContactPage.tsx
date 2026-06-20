@@ -107,13 +107,43 @@ export function ContactPage() {
   });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    await new Promise((r) => setTimeout(r, 1200));
-    setLoading(false);
-    setSubmitted(true);
+    setError(null);
+
+    try {
+      const env = import.meta.env.VITE_ENV || import.meta.env.MODE;
+
+      const baseUrl =
+        env === "development"
+          ? import.meta.env.VITE_DEV_URL
+          : import.meta.env.VITE_PROD_URL;
+
+      const response = await fetch(`${baseUrl}/api/contact/send-message`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(
+          errorData.message ||
+            "Failed to send message. Please try again later.",
+        );
+      }
+
+      setSubmitted(true);
+    } catch (err: any) {
+      setError(err.message || "An unexpected error occurred.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const updateField = (field: keyof FormData, value: string) => {
@@ -339,10 +369,16 @@ export function ContactPage() {
                           />
                         </div>
 
+                        {error && (
+                          <div className="p-3 bg-red-500/10 border border-red-500/20 text-red-500 text-sm rounded-lg text-center">
+                            {error}
+                          </div>
+                        )}
+
                         <Button
                           type="submit"
                           size="lg"
-                          className="w-full gap-2 h-12"
+                          className="w-full gap-2 h-12 hover:cursor-pointer"
                           disabled={loading}
                         >
                           {loading ? (
